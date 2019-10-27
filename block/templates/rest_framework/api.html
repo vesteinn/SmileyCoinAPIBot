@@ -1,0 +1,22 @@
+{% extends "rest_framework/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block head %}
+    {{ block.super }}
+    <style>
+        .navbar{
+            border-top: 5px solid #3265a3;
+        }
+        .smiley-icon{
+            margin-top: -9px;
+        }
+    </style>
+{% endblock %}
+
+{% block branding %}
+    <a class="navbar-brand" rel="nofollow" href="#">
+        <span><img class="smiley-icon" width="30" src="{% static "block/smly.png" %}"/></span>
+        {% trans 'SmileyCoin API' %}
+    </a>
+{% endblock %}
