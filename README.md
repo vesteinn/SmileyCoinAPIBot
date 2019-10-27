@@ -10,6 +10,8 @@ defaults to `/usr/local/bin/`.
 
 A simple Twitter client is also built in.
 
+![Smiley Coin API](https://github.com/vesteinn/SmileyCoinPythonAPIBot/blob/master/api.png)
+
 ## Prerequisites and setup
 
 ### Smileycoin server
@@ -41,6 +43,8 @@ You can use `smileycoin-cli getblockchaininfo` to fetch the highest available bl
 Simply run `python manage.py runserver` and open up the website mentioned
 in your browser.
 
+![Smiley Coin API](https://github.com/vesteinn/SmileyCoinPythonAPIBot/blob/master/search.png)
+
 ## Production or external use setup
 
 A production ready configuration can be setup with e.g. nginx and gunicorn. You might want to do this with a `docker-compose` file using a pre built database/image which may be suplied at a later time.
@@ -67,6 +71,10 @@ To post new OP_RETURN messages to your account simply run
 `python manage.py update_twitter`
 
 To see how it can look checkout https://twitter.com/return_op
+
+![SmileyCoin Twitter](https://github.com/vesteinn/SmileyCoinPythonAPIBot/blob/master/twitter.png)
+
+![Smiley Coin API](https://github.com/vesteinn/SmileyCoinPythonAPIBot/blob/master/opreturn.png)
 
 ## Future possibilities
 
