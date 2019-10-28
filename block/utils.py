@@ -8,7 +8,7 @@ GET_BLOCK_HASH = location + 'smileycoin-cli getblockhash {}'
 GET_BLOCK = location + 'smileycoin-cli getblock {}'
 GET_TRANS = location + 'smileycoin-cli getrawtransaction {}'
 DECODE_TRANS = location + 'smileycoin-cli decoderawtransaction {}'
-
+GET_HIGHEST = location + 'smileycoin-cli getblockchaininfo'
 
 def cli(tag, data):
     try:
@@ -44,3 +44,8 @@ def decode_trans(data):
 def get_transaction(data):
     d = c(decode_trans(c(cli(GET_TRANS, data))))
     return co(d)
+
+
+def get_highest_block():
+    d = co(c(cli(GET_HIGHEST, None)))
+    return d['blocks']

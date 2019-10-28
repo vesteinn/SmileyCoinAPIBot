@@ -45,3 +45,8 @@ class OpReturn(models.Model):
         dt = datetime.fromtimestamp(self.vout.tx.block.time)
         dt = dt.strftime("%Y/%m/%d, %H:%M:%S")
         return "{} \n {} \n {}".format(self.message, dt, self.vout.tx.txid)
+
+
+class Push(models.Model):
+    block_height = models.IntegerField()
+    timestamp = models.DateTimeField(auto_now=True)
