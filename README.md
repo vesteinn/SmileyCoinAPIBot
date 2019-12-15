@@ -20,7 +20,7 @@ The project is a final project in the course Crypotcurrencies STÆ532M2019H. Wor
 
 ### Smileycoin server
 
-You need to have a local `smileycoin-daemon` server running and `smileycoin-cli` setup, see https://tutor-web.info/smileycoin/download.
+You need to have a local `smileycoind` server running and `smileycoin-cli` setup, see https://tutor-web.info/smileycoin/download.
 
 If you are starting it up for the first time make sure the configuration has `txindex=1` set.
 
@@ -39,6 +39,8 @@ Note: You may be able use a file based sqlite database but it is not recomended 
 To populate the database with the blockchain information simply run
 
 `python manage.py scrape FROM_BLOCK TO_BLOCK`
+
+Where `FROM_BLOCK` and `TO_BLOCK` are block indexes.
 
 You can use `smileycoin-cli getblockchaininfo` to fetch the highest available block number.
 
@@ -123,5 +125,4 @@ For educational purposes it might be of interest to setup a fully functioning we
 command line interface against the database or local SmileyCoin server using the same syntax and appearance as `smilecoin-cli`, as long as input is sanitized and wallets individualized.
 
 ### Cleaner implementation
-Using the RPC interface.
-
+Currently, the implementation shells out to `smileycoin-cli`, ideally this should be implemented as rpc calls directly to the daemon.
