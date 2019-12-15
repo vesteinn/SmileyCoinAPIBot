@@ -1,17 +1,15 @@
 # SmileyCoin blockchain scraper and API
 
 This is a simple python / django application that utilises the smileycoin-cli interface to populate a relational
-database with the block chain information.
+database with the block chain information. A simple Twitter client is also built in.
 
 The database can be queried using the django ORM or a web based API.
 
 You probably need to set the directory of `smileycoin-cli` in the settings file, as with the database described below, to `SMILECOIN_CLI_LOCATION`. It defaults to `/usr/local/bin/`.
 
-A simple Twitter client is also built in.
-
 ![Smiley Coin API](https://github.com/vesteinn/SmileyCoinPythonAPIBot/blob/master/api.png)
 
-The project is a final project in the course Crypotcurrencies STÆ532M2019H. Work done by ves4 and ava7.
+The project is a final project in the course Crypotcurrencies STÆ532M2019H. Work is done by ves4 and ava7.
 
 ## Why?
 
@@ -30,11 +28,11 @@ If you are starting it up for the first time make sure the configuration has `tx
 
 Setup an empty database that you can write to and configure `smileychain/local_settings.py` with the connection information.
 
-Use a virtual environment or the like to install the packages in `requirements.txt` with `pip install -r requirements`.
+Use a virtual environment or the like to install the packages in `requirements.txt` with `pip install -r requirements.txt`.
 
-Migrate the database with `python manage.py migrate`.
+Migrate the database with `python manage.py migrate`, this set's up relevant tables and modifications.
 
-Note: You may be able use file based sqlite database but it is not recomended for anything but simple testing.
+Note: You may be able use a file based sqlite database but it is not recomended for anything but simple testing.
 
 ## Scraping
 
@@ -46,10 +44,34 @@ You can use `smileycoin-cli getblockchaininfo` to fetch the highest available bl
 
 ## Local webserver and api
 
-Simply run `python manage.py runserver` and open up the website mentioned
-in your browser.
+Simply run `python manage.py runserver` and open up the website mentioned in your browser (default http://127.0.0.1:8000/). This exposes a web interface for the REST api which enables navigation of some endpoints corresponding to tables in the database or models accesible through the Django ORM.
+
+```json
+{
+    "blocks": "http://127.0.0.1:8000/blocks/",
+    "transactions": "http://127.0.0.1:8000/transactions/",
+    "vouts": "http://127.0.0.1:8000/vouts/",
+    "vins": "http://127.0.0.1:8000/vins/",
+    "addresses": "http://127.0.0.1:8000/addresses/",
+    "op_returns": "http://127.0.0.1:8000/op_returns/"
+}
+```
+
+Some of these have filter and search options built in that can be easily extended or configured as per the Django REST Framework documentation at https://www.django-rest-framework.org (see `./block/api/views.py`).
 
 ![Smiley Coin API](https://github.com/vesteinn/SmileyCoinPythonAPIBot/blob/master/search.png)
+
+## Interactive shell
+
+Run `python manage.py shell` or `python manage.py shell_plus` to open up the Django shell with models and modules loaded for direct and efficient interaction with the ORM and db. E.g.
+
+```json
+In [1]: OpReturn.objects.filter(message__icontains="hello").count()
+Out[1]: 23
+
+In [2]: OpReturn.objects.filter(message__icontains="hello").last().message
+Out[2]: 'hello :)'
+```
 
 ## Production or external use setup
 
@@ -57,13 +79,12 @@ A production ready configuration can be setup with e.g. nginx and gunicorn. You 
 
 ## Twitter bot
 
-Some simple functionality to extract OP_RETURN messages is included. See the the `twitter` folder for relevant code.
+Some simple functionality to extract OP_RETURN messages and post to Twitter (using tweepy) is included. See the the `twitter` folder for relevant code.
 
 Use the management command `python manage.py op_return` to scrape interesting op return messages from the chain. These
 can be viewed at something similar to `http://127.0.0.1:8000/op_returns/`.
 
-To set up a twitter bot, first create a user and a new app with the keys needed. Then in the settings file or your local_settings 
-populate 
+To set up a twitter bot, first create a user and a new app with the keys needed. Then in the settings file or your local_settings populate 
 
 ```
 TWITTER_API_KEY = ""
@@ -84,11 +105,16 @@ To see how it can look checkout https://twitter.com/return_op
 
 ### Scrape, update op_return and push
 
-To update the database, parse incoming blocks and push to twitter, run
+To update the database, parse incoming blocks and push to twitter, run (see `./twitter/management/command/check_and_update.py`)
 
 `python manage.py check_and_update`
 
-This is a good candidate for something to run in cron.
+This is a good candidate for something to run in cron. To run every 10 minutes, run `crontab -e` and add:
+
+```
+*/10 * * * * /home/user/.virtualenvs/smiley/bin/python /home/user/SmileycoinAPIBot/smileychain/manage.py check_and_update >& /tmp/smly.log
+```
+
 
 ## Future possibilities
 
