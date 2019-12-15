@@ -76,6 +76,14 @@ To see how it can look checkout https://twitter.com/return_op
 
 ![Smiley Coin API](https://github.com/vesteinn/SmileyCoinPythonAPIBot/blob/master/opreturn.png)
 
+### Scrape, update op_return and push
+
+To update the database, parse incoming blocks and push to twitter, run
+
+`python manage.py check_and_update`
+
+This is a good candidate for something to run in cron.
+
 ## Future possibilities
 
 ### Web based smileycoin-cli
