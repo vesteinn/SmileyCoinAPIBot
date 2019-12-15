@@ -5,7 +5,7 @@ database with the block chain information. A simple Twitter client is also built
 
 The database can be queried using the django ORM or a web based API.
 
-You probably need to set the directory of `smileycoin-cli` in the settings file './smileychain/local_settings.py', as with the database described below, to `SMILEYCOIN_CLI_LOCATION`. It defaults to `/usr/local/bin/`.
+You probably need to set the directory of `smileycoin-cli` in the settings file `./smileychain/local_settings.py`, as with the database described below, to `SMILEYCOIN_CLI_LOCATION`. It defaults to `/usr/local/bin/`.
 
 ![Smiley Coin API](https://github.com/vesteinn/SmileyCoinPythonAPIBot/blob/master/api.png)
 
