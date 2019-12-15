@@ -32,7 +32,7 @@ class OpReturn(models.Model):
         for c in tqdm.tqdm(candidates):
             message = None
             try:
-                message = str(bytearray.fromhex(c.hex).decode())[2:]
+                message = str(bytearray.fromhex(c.hex).decode())[2:].replace("\x00", "\uFFFD")
             except UnicodeDecodeError:
                 pass
             cls.objects.create(
