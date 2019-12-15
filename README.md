@@ -5,12 +5,18 @@ database with the block chain information.
 
 The database can be queried using the django ORM or a web based API.
 
-You probably need to set the directory of `smileycoin-cli` in the settings file, as with the database described below, to `SMILECOIN_CLI_LOCATION`. It
-defaults to `/usr/local/bin/`.
+You probably need to set the directory of `smileycoin-cli` in the settings file, as with the database described below, to `SMILECOIN_CLI_LOCATION`. It defaults to `/usr/local/bin/`.
 
 A simple Twitter client is also built in.
 
 ![Smiley Coin API](https://github.com/vesteinn/SmileyCoinPythonAPIBot/blob/master/api.png)
+
+The project is a final project in the course Crypotcurrencies STÆ532M2019H. Work done by ves4 and ava7.
+
+## Why?
+
+* To create an infrastructure to support quick development on top of the SmileyCoin blockchain, querying a relational database for analytics or information is much more efficient than targeting the blockchain directly.
+* To create a Twitter bot that scans OP_RETURN values on transactions and posts them, maintaining a history of already posted messages and messages that do not nicely convert into ASCII.
 
 ## Prerequisites and setup
 
@@ -89,4 +95,7 @@ This is a good candidate for something to run in cron.
 ### Web based smileycoin-cli
 For educational purposes it might be of interest to setup a fully functioning web based
 command line interface against the database or local SmileyCoin server using the same syntax and appearance as `smilecoin-cli`, as long as input is sanitized and wallets individualized.
+
+### Cleaner implementation
+Using the RPC interface.
 
